@@ -1,0 +1,20 @@
+class Cart < ActiveRecord::Base
+  # dependent: :destroy indicates we want to destroy any line items associated to
+  # the cart if the cart is destroyed (cascade)
+  has_many :line_items, dependent: :destroy
+
+  def add_product(product_id)
+    current_item = line_items.find_by(product_id: product_id)
+    current_product = Product.find_by(product_id)
+    if current_item
+      current_item.quantity += 1
+    else
+      current_item = line_items.build(product_id: product_id, product_price: current_product.price)
+    end
+    current_item
+  end
+
+  def total_price
+    line_items.to_a.sum { |item| item.total_price }
+  end
+end
