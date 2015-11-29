@@ -26,13 +26,20 @@ Depot::Application.routes.draw do
     get :who_bought, on: :member
   end
 
+  # parenthesis indicate the :locale is optional
+  scope '(:locale)' do
+    resources :orders
+    resources :line_items
+    resources :carts
+    root 'store#index', as: 'store', via: :all
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   # as: 'store' tells Rails to create a store_path accessor method
-  root 'store#index', as: 'store'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
