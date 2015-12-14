@@ -1,4 +1,7 @@
+require "encrypt"
 class Order < ActiveRecord::Base
+  #encrypt(:name, :email)
+
   has_many :line_items, dependent: :destroy
 
   PAYMENT_TYPES = [ "Check", "Credit card", "Purchase order"]

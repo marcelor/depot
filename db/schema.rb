@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128211908) do
+ActiveRecord::Schema.define(version: 20151214163813) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string  "number"
+    t.decimal "balance", precision: 10, scale: 2, default: 0.0
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at"
